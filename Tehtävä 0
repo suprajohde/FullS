@@ -1,1 +1,116 @@
-moro
+Web-sovellusten perusteet
+
+0.1 HTML ja CSS
+
+    Luettu tutoriaalit HTML:stä ja CSS:stä.
+
+0.2 HTML:n lomakkeet
+
+    Luettu Your first form-tutoriaali.
+
+0.3 muistiinpanojen sivu
+
+kayttaja->selain:
+note left of selain
+kayttaja kirjottaa osoiteriville
+https://fullstack-exampleapp.herokuapp.com/notes
+end note
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/notes
+note left of palvelin
+  muodostetaan HTML missä olemassaolevien
+  muistiinpanojen lukumäärä päivitettynä
+end note
+palvelin->selain: status 200, sivun HTML-koodi
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/main.css
+note left of palvelin
+  tehdään sivun muotoilut css-tiedoston määritysten mukaan
+end note
+
+palvelin->selain: status 200, sivun muotoilu
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/main.js
+palvelin->selain: status 200
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/data.json
+palvelin->selain: status 200 JSON-data
+
+note left of selain
+ selain näyttää palvelimen palauttaman HTML:n, joka 
+ on muotoiltu css-tiedoston määritysten mukaan
+end note
+
+0.4 Uusi muistiinpano
+
+kayttaja->selain:
+note left of selain
+kayttaja on jo valmiiksi sivulla https://fullstack-exampleapp.herokuapp.com/notes,
+kirjoittaa muistiinpanon ja painaa "Talleta"-nappia
+end note
+selain->palvelin: POST https://fullstack-exampleapp.herokuapp.com/new_note
+note left of selain
+ käydään tallentamassa uusi muistiinpano ja tämän jälkeen haetaan
+ muut sivun elementit vielä palvelimelta
+end note
+palvelin->selain: status 302 found
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/main.css
+
+palvelin->selain: status 304 not modified
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/main.js
+palvelin->selain: status 304 not modified
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/data.json
+palvelin->selain: status 304 not modified
+
+note left of selain
+ selain näyttää palvelimen palauttaman HTML:n, joka 
+ on muotoiltu css-tiedoston määritysten mukaan ja jonne on 
+ lisätty uusi muistiinpano
+end note
+
+0.5 Single page app
+
+kayttaja->selain:
+note left of selain
+Käyttäjä menee sivulle https://fullstack-exampleapp.herokuapp.com/spa
+end note
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/spa
+note left of selain
+ muodostetaan HTML
+end note
+palvelin->selain: status 200
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/main.css
+
+palvelin->selain: status 200, sivuston muotoilut
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/spa.js
+palvelin->selain: status 200
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/data.json
+palvelin->selain: status 200
+
+note left of selain
+ selain näyttää palvelimen palauttaman HTML:n, joka 
+ on muotoiltu css-tiedoston määritysten mukaan
+end note
+
+0.6 Uusi muistiinpano SPA:ssa
+
+kayttaja->selain:
+note left of selain
+Käyttäjä on sivulla https://fullstack-exampleapp.herokuapp.com/spa,
+kirjoittaa uuden muistiinpanon ja painaa "Talleta"-nappia
+end note
+selain->palvelin: POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+note left of selain
+ lähetetään uusimuistiinpano palvelimelle
+end note
+palvelin->selain: status 201 created
+
+note left of selain
+ uusi muistiinpano on tallennettu palvelimelle
+end note
+
